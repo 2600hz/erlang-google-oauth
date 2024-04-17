@@ -13,6 +13,8 @@ get_access_token({file, ServiceAccountFile}, Scope) ->
     get_access_token({bin, Bin}, Scope);
 get_access_token({bin, ServiceAccountBin}, Scope) ->
     ServiceJson = jsx:decode(ServiceAccountBin, ?JSX_OPTS),
+    get_access_token({map, ServiceJson}, Scope);
+get_access_token({map, ServiceJson}, Scope) ->
     JWTToken = make_jwt(ServiceJson, Scope),
     validate_token(ServiceJson, JWTToken);
 get_access_token(ServiceAccountFile, Scope) ->
